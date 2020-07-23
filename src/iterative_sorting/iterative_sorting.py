@@ -1,26 +1,37 @@
+from Fortuna import shuffle
+import IteratorAlgorithms as ia
+
+
 # TO-DO: Complete the selection_sort() function below
-def selection_sort(arr):
-    # loop through n-1 elements
-    for i in range(0, len(arr) - 1):
-        cur_index = i
-        smallest_index = cur_index
-        # TO-DO: find next smallest element
-        # (hint, can do in 3 loc)
-        # Your code here
+def selection_sort(arr: list, ascending=True) -> list:
+    """ Selection Sort
+    Inplace, destructive
 
+    DocTests:
+    >>> t = list(range(10))
+    >>> shuffle(t)
+    >>> selection_sort(t)
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    >>> shuffle(t)
+    >>> selection_sort(t, ascending=False)
+    [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
 
-        # TO-DO: swap
-        # Your code here
-
+    @param ascending: Bool
+    @param arr: Input list of numbers
+    @return: sorted list
+    """
+    func = min if ascending else max
+    range_to = len(arr) - 1
+    for i in range(range_to):
+        arr.insert(i, arr.pop(arr.index(func(arr[i:]))))
     return arr
 
 
 # TO-DO:  implement the Bubble Sort function below
 def bubble_sort(arr):
     # Your code here
-
-
     return arr
+
 
 '''
 STRETCH: implement the Counting Sort function below
@@ -39,8 +50,41 @@ buckets.
 
 What is the time and space complexity of the counting sort algorithm?
 '''
-def counting_sort(arr, maximum=None):
-    # Your code here
 
 
-    return arr
+def counting_sort(array):
+    """ Radix Sort with counting component for extra extra points """
+
+    if not array:
+        return []
+
+    if not all(x >= 0 for x in array):
+        return "Error, negative numbers not allowed in Count Sort"
+
+    def counting():
+        size = len(array)
+        output = [0] * size
+        count = [0] * 10
+        for i in range(size):
+            index = array[i] // place
+            count[index % 10] += 1
+        count = list(ia.partial_sum(count))
+        i = size - 1
+        while i >= 0:
+            index = array[i] // place
+            output[count[index % 10] - 1] = array[i]
+            count[index % 10] -= 1
+            i -= 1
+        for i in range(len(array)):
+            array[i] = output[i]
+
+    if array:
+        if all(x >= 0 for x in array):
+            max_element = max(array)
+            place = 1
+            while max_element // place > 0:
+                counting()
+                place *= 10
+        else:
+            return
+    return array

@@ -4,6 +4,8 @@
 
 ## Iterative Sorting
 
+***All tests passing***
+
 ## Objectives
 
 - describe the differences between Linear and Binary Search algorithms
