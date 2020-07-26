@@ -2,7 +2,6 @@ from Fortuna import shuffle
 import IteratorAlgorithms as ia
 
 
-# TO-DO: Complete the selection_sort() function below
 def selection_sort(arr: list, ascending=True) -> list:
     """ Selection Sort
     Inplace, destructive
@@ -27,9 +26,12 @@ def selection_sort(arr: list, ascending=True) -> list:
     return arr
 
 
-# TO-DO:  implement the Bubble Sort function below
 def bubble_sort(arr):
-    # Your code here
+    n = len(arr)
+    for i in range(n - 1):
+        for j in range(0, n - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
     return arr
 
 
@@ -78,13 +80,10 @@ def counting_sort(array):
         for i in range(len(array)):
             array[i] = output[i]
 
-    if array:
-        if all(x >= 0 for x in array):
-            max_element = max(array)
-            place = 1
-            while max_element // place > 0:
-                counting()
-                place *= 10
-        else:
-            return
+    max_element = max(array)
+    place = 1
+    while max_element // place > 0:
+        counting()
+        place *= 10
+
     return array
